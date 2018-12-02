@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace EShopBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

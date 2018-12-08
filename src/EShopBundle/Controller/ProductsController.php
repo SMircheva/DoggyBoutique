@@ -3,9 +3,10 @@
 namespace EShopBundle\Controller;
 
 use EShopBundle\Entity\Product;
-use http\Env\Request;
+use EShopBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProductsController extends Controller
 {
@@ -20,32 +21,56 @@ class ProductsController extends Controller
      */
     public function createAction(Request $request) {
         $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
 
-        return $this->render('products/add_edit.thml.twig');
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()
+                ->getManager();
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('products/add_edit.thml.twig', ['form'=>$form->createView()]);
     }
 
     /**
      * @Route("/edit/{id}", name="edit_product")
      */
-    public function editAction($id) {
-        $currentProduct = $this->getDoctrine()
-            ->getRepository(Product::class)
-            ->find($id);
-
-        // finish edit action here
-    }
-
-    /**
-     * @Route("/delete/{id}", name="detele_product)
-     */
-    public function deleteAction($id) {
+    public function editAction(Request $request, $id) {
         $product = $this->getDoctrine()
             ->getRepository(Product::class)
             ->find($id);
+        $form = $this->createForm(ProductType::class, $product);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($product);
+        $form->handleRequest($request);
 
-        //render view with success message
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()
+                ->getManager();
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('products/add_edit.thml.twig', ['form'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="detele_product")
+     */
+    public function deleteAction($id) {
+//        $product = $this->getDoctrine()
+//            ->getRepository(Product::class)
+//            ->find($id);
+//
+//        //add check if the product exists
+//        $em = $this->getDoctrine()->getManager();
+//        $em->remove($product);
+
+        return $this->renderView('default/index.html.twig');
+
     }
 }

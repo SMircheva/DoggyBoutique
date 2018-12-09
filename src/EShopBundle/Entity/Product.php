@@ -1,26 +1,21 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Silviya
- * Date: 02-Dec-18
- * Time: 3:53 PM
- */
-
 
 namespace EShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="products")
+ * Product
  *
+ * @ORM\Table(name="products")
+ * @ORM\Entity(repositoryClass="EShopBundle\Repository\ProductRepository")
  */
 class Product
 {
     /**
      * @var int
-     * @ORM\Column(type="integer")
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -28,25 +23,29 @@ class Product
 
     /**
      * @var string
-     * @ORM\Column(type="string", unique=true)
+     *
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var double
-     * @ORM\Column(type="decimal", scale=2)
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
      */
     private $price;
 
     /**
      * @var string
-     * @ORM\Column(type="text")
+     *
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
 
     /**
      * @var \DateTime
-     * @ORM\Column(type="datetime", name="create_date")
+     *
+     * @ORM\Column(name="createDate", type="datetime")
      */
     private $createDate;
 
@@ -56,70 +55,33 @@ class Product
      */
     private $category;
 
-    public function __construct()
-    {
-        $this->createDate = new \DateTime('now');
-    }
-
-
     /**
-     * @return int
+     * @var Color[]
+     * @ORM\ManyToMany(targetEntity="EShopBundle\Entity\Color", inversedBy="products")
+     * @ORM\JoinTable(name="products_colors",
+     *      joinColumns={@ORM\JoinColumn(name="products_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="color_id",referencedColumnName="id")})
      */
-    public function getId()
-    {
-        return $this->id;
-    }
+    private $colors;
 
     /**
-     * @return string
+     * @return Color[]
      */
-    public function getName()
+    public function getColors()
     {
-        return $this->name;
+        return $this->colors;
     }
 
     /**
-     * @param string $name
+     * @param Color[] $colors
      */
-    public function setName($name)
+    public function setColors($colors)
     {
-        $this->name = $name;
+        $this->colors = $colors;
     }
 
     /**
-     * @return float
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param float $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return mixed
+     * @return Category
      */
     public function getCategory()
     {
@@ -134,4 +96,115 @@ class Product
         $this->category = $category;
     }
 
+    public function __construct()
+    {
+        $this->createDate = new \DateTime('now');
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Product
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     *
+     * @return Product
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Product
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set createDate
+     *
+     * @param \DateTime $createDate
+     *
+     * @return Product
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->createDate = $createDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createDate
+     *
+     * @return \DateTime
+     */
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
 }
+

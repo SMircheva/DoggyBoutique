@@ -5,12 +5,12 @@ namespace EShopBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
+ * Color
  *
- * @ORM\Table(name="categories")
- * @ORM\Entity(repositoryClass="EShopBundle\Repository\CategoryRepository")
+ * @ORM\Table(name="colors")
+ * @ORM\Entity(repositoryClass="EShopBundle\Repository\ColorRepository")
  */
-class Category
+class Color
 {
     /**
      * @var int
@@ -24,16 +24,15 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
-    /**
-     * @var Product[]
-     * @ORM\OneToMany(targetEntity="EShopBundle\Entity\Category", mappedBy="category")
-     */
-    private $products;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
      * Get id
@@ -50,7 +49,7 @@ class Category
      *
      * @param string $name
      *
-     * @return Category
+     * @return Color
      */
     public function setName($name)
     {

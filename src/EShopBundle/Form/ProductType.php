@@ -3,6 +3,7 @@
 namespace EShopBundle\Form;
 
 use EShopBundle\Entity\Category;
+use EShopBundle\Entity\Color;
 use EShopBundle\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,6 +24,11 @@ class ProductType extends AbstractType
                     'choice_label' => 'name',
                     'placeholder' => ''
                 ])
+            ->add('colors', EntityType::class,[
+                'class' => Color::class,
+                'choice_label' => 'name',
+                'multiple' => true
+            ])
             ->add('save', SubmitType::class);
     }
 

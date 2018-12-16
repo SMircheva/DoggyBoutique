@@ -6,6 +6,8 @@ use EShopBundle\Entity\Product;
 use EShopBundle\Form\ProductType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProductsController extends Controller
@@ -26,6 +28,19 @@ class ProductsController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $file */
+            $file = $form->getData()->getImage();
+
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            try {
+                $file->move($this->getParameter('products_directory'),
+                    $fileName);
+            } catch (FileException $ex) {
+
+            }
+
+            $product->setImage($fileName);
             $em = $this->getDoctrine()
                 ->getManager();
             $em->persist($product);

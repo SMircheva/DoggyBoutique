@@ -65,6 +65,28 @@ class Product
     private $colors;
 
     /**
+     * @var string
+     * @ORM\Column(name="image", type="string")
+     */
+    private $image;
+
+    /**
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
      * @return Color[]
      */
     public function getColors()

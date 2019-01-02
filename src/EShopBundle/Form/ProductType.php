@@ -5,6 +5,7 @@ namespace EShopBundle\Form;
 use EShopBundle\Entity\Category;
 use EShopBundle\Entity\Color;
 use EShopBundle\Entity\Product;
+use EShopBundle\Entity\Size;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -25,12 +26,21 @@ class ProductType extends AbstractType
                     'choice_label' => 'name',
                     'placeholder' => ''
                 ])
+            ->add('sizes', EntityType::class, [
+                'class' => Size::class,
+                'choice_label' => 'name',
+                'multiple' => true
+            ])
             ->add('colors', EntityType::class,[
                 'class' => Color::class,
                 'choice_label' => 'name',
                 'multiple' => true
             ])
-            ->add('image', FileType::class)
+            ->add('image', FileType::class, [
+                'attr' => [
+                    'accept' => 'image/*'
+                ]
+            ])
             ->add('save', SubmitType::class);
     }
 

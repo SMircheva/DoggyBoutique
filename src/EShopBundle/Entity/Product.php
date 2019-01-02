@@ -65,6 +65,15 @@ class Product
     private $colors;
 
     /**
+     * @var Size[]
+     * @ORM\ManyToMany(targetEntity="EShopBundle\Entity\Size", inversedBy="products")
+     * @ORM\JoinTable(name="products_sizes",
+     *     joinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="size_id", referencedColumnName="id")})
+     */
+    private $sizes;
+
+    /**
      * @var string
      * @ORM\Column(name="image", type="string")
      */
@@ -100,6 +109,11 @@ class Product
     public function setColors($colors)
     {
         $this->colors = $colors;
+    }
+
+    public function setSizes($sizes)
+    {
+        $this->colors = $sizes;
     }
 
     /**
@@ -227,6 +241,14 @@ class Product
     public function getCreateDate()
     {
         return $this->createDate;
+    }
+
+    /**
+     * @return Size[]
+     */
+    public function getSizes()
+    {
+        return $this->sizes;
     }
 }
 

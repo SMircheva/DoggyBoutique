@@ -4,11 +4,13 @@ namespace EShopBundle\Controller;
 
 use EShopBundle\Entity\Product;
 use EShopBundle\Form\ProductType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ProductsController extends Controller
 {
@@ -24,7 +26,6 @@ class ProductsController extends Controller
     public function createAction(Request $request) {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -45,10 +46,10 @@ class ProductsController extends Controller
                 ->getManager();
             $em->persist($product);
             $em->flush();
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('index_alt');
         }
 
-        return $this->render('products/add_edit.thml.twig', ['form'=>$form->createView()]);
+        return $this->render('products/add_product.html.twig', ['form'=>$form->createView()]);
     }
 
     /**
@@ -70,7 +71,19 @@ class ProductsController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('products/add_edit.thml.twig', ['form'=>$form->createView()]);
+        return $this->render('products/add_product.html.twig', ['form'=>$form->createView()]);
+    }
+
+    /**
+     * @Route("/view/{id}", name="view_product")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewAction($id){
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($id);
+        return $this->render('products/view_product.html.twig', ['product' => $product]);
     }
 
     /**

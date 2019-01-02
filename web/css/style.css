@@ -1,3 +1,12 @@
 .border-2 {
     border: 2px solid;
 }
+
+img {
+    max-width: 200px;
+    height: auto;
+}
+
+body {
+    padding-top: 70px;
+}

@@ -1,7 +1,5 @@
 <?php
-
 namespace EShopBundle\Repository;
-
 /**
  * ProductRepository
  *
@@ -16,9 +14,6 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
                  JOIN p.colors c
                  JOIN p.category cat'
          );
-
          return $query->getResult();
      }
-
-
 }

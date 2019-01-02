@@ -12,7 +12,7 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
 
         $products = $this->getDoctrine()
@@ -23,5 +23,18 @@ class DefaultController extends Controller
             'products' => $products,
         ]);
 
+    }
+
+    /**
+     * @Route("/alt", name="index_alt")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction2 () {
+        $products = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->getListOfCatCol();
+        return $this->render('default/index_alt.html.twig', [
+            'products' => $products,
+        ]);
     }
 }

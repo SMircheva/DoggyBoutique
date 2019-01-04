@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{%  block body %}
+    <form name="register" action="{{ path('user_register') }}" method="post" class="text-white col-lg-6 offset-lg-3 bg-secondary mt-4 rounded p-4">
+        <div class="form-group">
+            <label for="user[username]" class="col-lg-8 offset-lg-2">
+                Email:
+                <input type="email" class="form-control mt-2" name="user[username]" placeholder="myemail@myhost.com">
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="user[password]" class="col-lg-8 offset-lg-2">
+                Password:
+                <input type="user[password]" class="form-control mt-2" name="password">
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="user[firstName]" class="col-lg-8 offset-lg-2">
+                Име:
+                <input type="text" class="form-control mt-2" name="user[firstName]">
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="user[lastName]" class="col-lg-8 offset-lg-2">
+                Фамилия:
+                <input type="text" class="form-control mt-2" name="user[lastName]">
+            </label>
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('register') }}">
+        <button class="btn-success btn col-4 offset-4 mt-5" type="submit" >Регистрирай се</button>
+    </form>
+
+{% endblock %}

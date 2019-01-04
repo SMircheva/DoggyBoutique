@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ dump(product) }}
 
     <h1 class="h1">{{ product.name }}</h1>
     <img class="mx-auto" src="{{ asset('uploads/images/' ~ product.image) }}" alt="" >

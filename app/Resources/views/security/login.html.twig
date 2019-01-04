@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <form action="{{ path('security_login') }}" method="post" class="text-white col-lg-6 offset-lg-3 bg-secondary mt-4 rounded p-4">
+    <form name="authenticate" action="{{ path('security_login') }}" method="post" class="text-white col-lg-6 offset-lg-3 bg-secondary mt-4 rounded p-4">
         <div class="form-group">
-            <label for="email" class="col-lg-8 offset-lg-2">
+            <label for="username" class="col-lg-8 offset-lg-2">
                 Email:
-            <input type="email" class="form-control mt-2" name="email" placeholder="myemail@myhost.com">
+            <input type="email" class="form-control mt-2" name="username" placeholder="myemail@myhost.com">
             </label>
         </div>
         <div class="form-group">
@@ -14,8 +14,9 @@
                 <input type="password" class="form-control mt-2" name="password">
             </label>
         </div>
-        <button class="btn-success btn col-4 offset-4 mt-5">Login</button>
-        <p>Нямате акант? Регистрирайте се <a href="{{ path('user_register') }}">тук</a></p>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <input class="btn-success btn col-4 offset-4 mt-5" type="submit" value="Вход">
+        <p>Нямате акант? Регистрирайте се <u><a class="text-white " href="{{ path('user_register') }}">тук</a></u></p>
     </form>
 
 {% endblock %}

@@ -1,40 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th>
-            Име
-        </th>
-        <th>
-            Цена
-        </th>
-        <th>
-            Категория
-        </th>
-        <th>
-            Цвят
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
+
+    <div class="row">
     {% for product in products %}
-    <tr class="table-light">
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.category.name }}</td>
-        <td>{{ product.colors|join(', ') }}</td>
+        <div class="mt-4 card border-0 col-lg-3 col-md-4 col-sm-12 text-center">
+            <img class="mx-auto" src="{{ asset('uploads/images/' ~ product.image) }}" alt="">
+            <div class="card-body">
+                <h4 class="card-title">{{ product.name}}</h4>
+                <a href="{{ path('view_product', {'id':product.id}) }}" class="btn btn-outline-secondary">Виж</a>
+                <a href="{{ path('edit_product', {'id':product.id}) }}" class="btn btn-outline-primary">Добави</a>
 
-        <td>
-            <a href="{{ path('edit_product', {'id':product.id}) }}">Редактирай</a>
-        </td>
-    </tr>
+            </div>
+        </div>
+
     {% endfor %}
-    </tbody>
-</table>
-
+    </div>
 
 {% endblock %}
-

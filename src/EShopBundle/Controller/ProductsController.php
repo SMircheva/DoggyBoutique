@@ -87,6 +87,23 @@ class ProductsController extends Controller
     }
 
     /**
+     * @Route("/products", name="products_list")
+     * not accessible through menu at the moment
+     */
+    public function listProducts()
+    {
+
+        $products = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->getListOfCatCol();
+
+        return $this->render('products/products_list.html.twig', [
+            'products' => $products,
+        ]);
+
+    }
+
+    /**
      * @Route("/delete/{id}", name="detele_product")
      */
     public function deleteAction($id) {
@@ -98,7 +115,7 @@ class ProductsController extends Controller
 //        $em = $this->getDoctrine()->getManager();
 //        $em->remove($product);
 
-        return $this->renderView('default/index.html.twig');
+        return $this->renderView('products_list.html.twig');
 
     }
 }

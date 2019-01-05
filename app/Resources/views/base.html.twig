@@ -21,9 +21,11 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
 
+                {% if (app.user) and (app.user.isAdmin) %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('add_product') }}">Добави продукт</a>
                 </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if app.user %}

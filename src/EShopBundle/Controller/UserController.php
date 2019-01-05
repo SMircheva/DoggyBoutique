@@ -2,6 +2,7 @@
 
 namespace EShopBundle\Controller;
 
+use EShopBundle\Entity\Role;
 use EShopBundle\Entity\User;
 use EShopBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,6 +26,11 @@ class UserController extends Controller
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
+
+            $role = $this->getDoctrine()->getRepository(Role::class)
+                ->findOneBy(['name' => "ROLE_USER"]);
+            $user->setRole($role);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

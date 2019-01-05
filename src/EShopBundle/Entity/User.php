@@ -50,6 +50,12 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="EShopBundle\Entity\Role", inversedBy="users")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     */
+    private $role;
+
 
     /**
      * Get id
@@ -197,6 +203,32 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin() {
+        if($this->getRole()->getName() == 'ROLE_ADMIN'){
+            return true;
+        }
+        return false;
     }
 }
 

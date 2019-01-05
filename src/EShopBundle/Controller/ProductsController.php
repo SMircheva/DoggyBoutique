@@ -46,7 +46,7 @@ class ProductsController extends Controller
                 ->getManager();
             $em->persist($product);
             $em->flush();
-            return $this->redirectToRoute('index_alt');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('products/add_product.html.twig', ['form'=>$form->createView()]);

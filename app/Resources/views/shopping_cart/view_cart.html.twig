@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Продукт</th>
+            <th>Цвят</th>
+            <th>Размер</th>
+            <th>Количество</th>
+            <th>Единична цена</th>
+            <th>Обща стоност</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for item in cart_contents %}
+        <tr class="table-light">
+            <td><img src="{{ asset('uploads/images/' ~ item.image) }}" alt="" class="pr-0 height-50"></td>
+            <td>{{ item.product }}</td>
+            <td>{{ item.color }}</td>
+            <td>{{ item.size }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ (item.quantity * item.price) | number_format(2, '.', '') }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

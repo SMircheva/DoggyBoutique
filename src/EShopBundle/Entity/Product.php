@@ -29,7 +29,7 @@ class Product
     private $name;
 
     /**
-     * @var string
+     * @var double
      *
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
      */
@@ -174,7 +174,7 @@ class Product
     /**
      * Set price
      *
-     * @param string $price
+     * @param double $price
      *
      * @return Product
      */
@@ -188,7 +188,7 @@ class Product
     /**
      * Get price
      *
-     * @return string
+     * @return double
      */
     public function getPrice()
     {

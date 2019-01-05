@@ -38,6 +38,9 @@
                     <a class="nav-link" href="{{ path('security_login') }}">Влез</a>
                 </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('shopping_cart') }}">Количка</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -49,6 +52,8 @@
         {% block javascripts %}
             <script src="{{ asset('js/bootstrap.min.js') }}"></script>
             <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+            <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+            <script src="{{ asset('js/script.js') }}"></script>
         {% endblock %}
     </body>
 </html>

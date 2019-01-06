@@ -2,6 +2,12 @@
 
 {% block body %}
 
+    {% if cart_contents is empty %}
+        <div class="alert alert-dismissible alert-secondary">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            Количката Ви е празна! Отидете в <a href="{{ path('homepage') }}" class="alert-link">магазина</a>, за да пазарувате!
+        </div>
+    {% else %}
 
     <table class="table table-hover">
         <thead>
@@ -15,6 +21,7 @@
             <th>Обща стоност</th>
         </tr>
         </thead>
+
         <tbody>
 
         {% for item in cart_contents %}
@@ -30,4 +37,7 @@
         {% endfor %}
         </tbody>
     </table>
+        <a href="{{ path('order_details') }}" class="btn btn-outline-secondary">Поръчай</a>
+    {% endif %}
+
 {% endblock %}

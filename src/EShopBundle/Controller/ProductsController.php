@@ -21,6 +21,7 @@ class ProductsController extends Controller
 
     /**
      * @Route("/add", name="add_product")
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function createAction(Request $request) {

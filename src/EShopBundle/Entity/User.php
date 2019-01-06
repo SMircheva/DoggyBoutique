@@ -55,6 +55,11 @@ class User implements UserInterface
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id")
      */
     private $role;
+    /**
+     * @var Address[]
+     * @ORM\OneToMany(targetEntity="EShopBundle\Entity\Address", mappedBy="user")
+     */
+    private $addresses;
 
 
     /**

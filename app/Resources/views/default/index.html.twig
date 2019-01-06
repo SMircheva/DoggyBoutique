@@ -8,8 +8,8 @@
             <img class="mx-auto" src="{{ asset('uploads/images/' ~ product.image) }}" alt="">
             <div class="card-body">
                 <h4 class="card-title">{{ product.name}}</h4>
-                <a href="{{ path('view_product', {'id':product.id}) }}" class="btn btn-outline-secondary">Виж</a>
-                <a href="{{ path('edit_product', {'id':product.id}) }}" class="btn btn-outline-primary">Добави</a>
+                <a href="{{ path('view_product', {'id':product.id}) }}" class="btn btn-outline-secondary">Виж повече</a>
+                {#<a href="{{ path('edit_product', {'id':product.id}) }}" class="btn btn-outline-primary">Добави</a>#}
 
             </div>
         </div>

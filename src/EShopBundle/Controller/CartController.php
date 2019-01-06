@@ -19,9 +19,11 @@ class CartController extends Controller
     {
         $session = $request->getSession();
         $cartContents = [];
-        foreach ($session->get('cart_contents') as $itemGroup){
-            foreach ($itemGroup as $item) {
-                $cartContents[] = $item;
+        if($session->get('cart_contents') !== null) {
+            foreach ($session->get('cart_contents') as $itemGroup) {
+                foreach ($itemGroup as $item) {
+                    $cartContents[] = $item;
+                }
             }
         }
         return $this->render('shopping_cart/view_cart.html.twig',
@@ -67,20 +69,12 @@ class CartController extends Controller
             $session->set('cart_contents', $cartContents);
         }
 
-
-
-//        $cartContents[] = $orderProduct;
-//        $session->set('cart_contents', [$id => $cartContents]);
-
-
-//        $session->set('test_item', 'test value');
-//
-//        var_dump($session->get('test_item'));
-
         $cartDisplay = [];
-        foreach ($session->get('cart_contents') as $itemGroup){
-            foreach ($itemGroup as $item) {
-                $cartDisplay[] = $item;
+        if($session->get('cart_contents') !== null) {
+            foreach ($session->get('cart_contents') as $itemGroup) {
+                foreach ($itemGroup as $item) {
+                    $cartDisplay[] = $item;
+                }
             }
         }
         return $this->render('shopping_cart/view_cart.html.twig',

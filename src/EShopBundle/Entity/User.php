@@ -61,6 +61,10 @@ class User implements UserInterface
      */
     private $addresses;
 
+    public function __construct()
+    {
+        $this->addresses = [];
+    }
 
     /**
      * Get id

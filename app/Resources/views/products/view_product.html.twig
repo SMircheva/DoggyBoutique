@@ -5,7 +5,7 @@
     <h1 class="h1">{{ product.name }}</h1>
     <img class="mx-auto" src="{{ asset('uploads/images/' ~ product.image) }}" alt="" >
     <h3 class="h3">{{ product.description }}</h3>
-
+    <form action="{{ path('add_to_cart', {'id':product.id}) }}">
     <div class="row">
         <div class="col-lg-6 col-sm-12">
             <p class="font-weight-bold">Изберете цвят:</p>
@@ -13,7 +13,7 @@
             {% for color in product.colors %}
 
                 <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+                    <input type="radio" class="form-check-input"  name="color_select">
                     <label class="form-check-label" for="materialInline1">{{ color }}</label>
                 </div>
             {% endfor %}
@@ -24,7 +24,7 @@
             {% for size in product.sizes %}
 
                 <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample">
+                    <input type="radio" class="form-check-input" name="size_select">
                     <label class="form-check-label" for="materialInline1">{{ size }}</label>
                 </div>
             {% endfor %}
@@ -33,8 +33,9 @@
 
 
     <div class="row">
-        <a id="add-to-cart" class="btn btn-outline-secondary mt-4" href="{{ path('add_to_cart', {'id':product.id}) }}">Добави в количката</a>
+        <button id="add-to-cart" class="btn btn-outline-secondary mt-4" type="submit">Добави в количката</button>
 
     </div>
+    </form>
 
 {% endblock %}

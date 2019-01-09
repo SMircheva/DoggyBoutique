@@ -1,14 +1,11 @@
 <?php
-
 namespace EShopBundle\Controller;
-
 use EShopBundle\Entity\OrderProduct;
 use EShopBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
 class CartController extends Controller
 {
     /**
@@ -29,7 +26,6 @@ class CartController extends Controller
         return $this->render('shopping_cart/view_cart.html.twig',
             ['cart_contents' => $cartContents]);
     }
-
     /**
      * @Route("/add_to_cart/{id}", name="add_to_cart")
      * @param Request $request
@@ -42,12 +38,11 @@ class CartController extends Controller
             ->getRepository(Product::class)
             ->find($id);
         $orderProduct->setProduct($product->getName());
-        $orderProduct->setColor('red');
+        $orderProduct->setColor('червен');
         $orderProduct->setSize('S');
         $orderProduct->setImage($product->getImage());
         $orderProduct->setPrice($product->getPrice());
         $orderProduct->setQuantity(1);
-
         $session = $request->getSession();
         $cartContents = $session->get('cart_contents');
         if($cartContents !== null && key_exists($id, $cartContents)){
@@ -68,7 +63,6 @@ class CartController extends Controller
             $cartContents[$id][] = $orderProduct;
             $session->set('cart_contents', $cartContents);
         }
-
         $cartDisplay = [];
         if($session->get('cart_contents') !== null) {
             foreach ($session->get('cart_contents') as $itemGroup) {

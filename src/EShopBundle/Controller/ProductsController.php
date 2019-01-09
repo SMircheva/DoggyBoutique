@@ -29,6 +29,7 @@ class ProductsController extends Controller
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid()) {
 
             /** @var UploadedFile $file */

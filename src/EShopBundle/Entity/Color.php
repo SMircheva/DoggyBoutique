@@ -2,6 +2,7 @@
 
 namespace EShopBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +29,12 @@ class Color
      */
     private $name;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="EShopBundle\Entity\Product", mappedBy="colors")
+     */
+    private $products;
 
     public function __toString()
     {

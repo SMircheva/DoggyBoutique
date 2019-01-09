@@ -2,6 +2,7 @@
 
 namespace EShopBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -104,6 +105,14 @@ class Product
     }
 
     /**
+     * @return Size[]
+     */
+    public function getSizes()
+    {
+        return $this->sizes;
+    }
+
+    /**
      * @param Color[] $colors
      */
     public function setColors($colors)
@@ -111,6 +120,9 @@ class Product
         $this->colors = $colors;
     }
 
+    /**
+     * @param Size[]
+     */
     public function setSizes($sizes)
     {
         $this->colors = $sizes;
@@ -135,6 +147,8 @@ class Product
     public function __construct()
     {
         $this->createDate = new \DateTime('now');
+        $this->colors = new ArrayCollection();
+        $this->sizes = new ArrayCollection();
     }
 
     /**
@@ -243,12 +257,6 @@ class Product
         return $this->createDate;
     }
 
-    /**
-     * @return Size[]
-     */
-    public function getSizes()
-    {
-        return $this->sizes;
-    }
+
 }
 

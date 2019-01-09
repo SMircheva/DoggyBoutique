@@ -2,6 +2,7 @@
 
 namespace EShopBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +28,13 @@ class Size
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="EShopBundle\Entity\Product",mappedBy="sizes")
+     */
+    private $products;
 
     public function __toString()
     {

@@ -56,24 +56,48 @@ class ProductsController extends Controller
 
     /**
      * @Route("/edit/{id}", name="edit_product")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, $id) {
         $product = $this->getDoctrine()
             ->getRepository(Product::class)
             ->find($id);
-        $form = $this->createForm(ProductType::class, $product);
 
+        if ($product === null) {
+            return $this->redirectToRoute('homepage');
+        }
+
+        $product->setImage(null);
+        $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+
+            if($form->getData()->getImage() !== null) {
+            /** @var UploadedFile $file */
+            $file = $form->getData()->getImage();
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+            try {
+                $file->move($this->getParameter('products_directory'),
+                    $fileName);
+            } catch (FileException $ex){
+
+            }
+
+            $product->setImage($fileName);
+            } 
             $em = $this->getDoctrine()
                 ->getManager();
-            $em->persist($product);
+            $em->merge($product);
             $em->flush();
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('products/add_product.html.twig', ['form'=>$form->createView()]);
+        return $this->render('products/add_product.html.twig', ['form'=>$form->createView(),
+            'product' =>$product]);
     }
 
     /**

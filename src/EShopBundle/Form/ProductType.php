@@ -39,7 +39,8 @@ class ProductType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'attr' => [
-                    'accept' => 'image/*'
+                    'accept' => 'image/*',
+                    'required' => false
                 ]
             ])
             ->add('save', SubmitType::class);

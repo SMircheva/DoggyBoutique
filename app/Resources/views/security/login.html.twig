@@ -4,19 +4,19 @@
     <form name="authenticate" action="{{ path('security_login') }}" method="post" class="text-white col-lg-6 offset-lg-3 bg-secondary mt-4 rounded p-4">
         <div class="form-group">
             <label for="_username" class="col-lg-8 offset-lg-2">
-                Email:
+                Имейл:
             <input type="email" class="form-control mt-2" name="_username" placeholder="myemail@myhost.com">
             </label>
         </div>
         <div class="form-group">
             <label for="_password" class="col-lg-8 offset-lg-2">
-                Password:
-                <input type="password" class="form-control mt-2" name="_password">
+                Парола:
+                <input type="password" class="form-control mt-2" name="_password" placeholder="********">
             </label>
         </div>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <input class="btn-success btn col-4 offset-4 mt-5" type="submit" value="Вход">
-        <p>Нямате акант? Регистрирайте се <u><a class="text-white " href="{{ path('user_register') }}">тук</a></u></p>
+        <p class="text-center">Нямате акант? Регистрирайте се <u><a class="text-white " href="{{ path('user_register') }}">тук</a></u></p>
     </form>
 
 {% endblock %}

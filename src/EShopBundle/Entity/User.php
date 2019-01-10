@@ -61,6 +61,14 @@ class User implements UserInterface
      */
     private $addresses;
 
+    /**
+     * @var Order[]
+     * @ORM\OneToMany(targetEntity="EShopBundle\Entity\Order", mappedBy="user")
+     */
+    private $orders;
+
+
+
     public function __construct()
     {
         $this->addresses = [];
@@ -238,6 +246,22 @@ class User implements UserInterface
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return Order[]
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param Order[] $orders
+     */
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
     }
 }
 

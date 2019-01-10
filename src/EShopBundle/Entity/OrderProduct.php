@@ -8,13 +8,25 @@
 
 namespace EShopBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class OrderProduct
- * no connection to database - to be used only to store items in session
+ *
+ * @ORM\Table(name="order_products")
+ * @ORM\Entity(repositoryClass="EShopBundle\Repository\OrderProductRepository")
  */
 class OrderProduct
 {
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
     /**
      * @var string
      */
@@ -44,6 +56,13 @@ class OrderProduct
      * @var double
      */
     private $price;
+
+    /**
+     * @var Order
+     * @ORM\ManyToOne(targetEntity="EShopBundle\Entity\Order", inversedBy="orderProducts")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     */
+    private $order;
 
     /**
      * @return int
@@ -139,6 +158,22 @@ class OrderProduct
     public function setPrice($price)
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return Order
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
     }
 
 }

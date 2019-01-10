@@ -48,7 +48,8 @@ class ProductsController extends Controller
                 ->getManager();
             $em->persist($product);
             $em->flush();
-            return $this->redirectToRoute('homepage');
+            $this->addFlash('info', 'Продукт ' . $product->getName() . ' е добаден успешно. Можете да продължите да добавяте.');
+            return $this->redirectToRoute('add_product');
         }
 
         return $this->render('products/add_product.html.twig', ['form'=>$form->createView()]);
@@ -88,7 +89,7 @@ class ProductsController extends Controller
             }
 
             $product->setImage($fileName);
-            } 
+            }
             $em = $this->getDoctrine()
                 ->getManager();
             $em->merge($product);
